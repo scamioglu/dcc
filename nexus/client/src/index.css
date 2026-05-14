@@ -1,0 +1,48 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-void: #080910;
+  --bg-deep: #0e0f14;
+  --bg-surface: #11121a;
+  --bg-raised: #1a1b26;
+  --bg-hover: #191a25;
+  --bg-active: #1e2030;
+  --border: rgba(255,255,255,0.06);
+  --border-md: rgba(255,255,255,0.1);
+  --text-primary: #e2e4ec;
+  --text-secondary: #9ca3c4;
+  --text-muted: #555870;
+  --accent: #4f5fcc;
+  --accent-hover: #6070de;
+  --green: #1D9E75;
+  --green-light: #5DCAA5;
+  --coral: #D85A30;
+  --amber: #BA7517;
+  --purple-light: #7c8bc4;
+
+  /* Mobil tarayıcı chrome dahil gerçek yükseklik */
+  --vh: 1dvh;
+}
+
+html {
+  /* dvh desteklemeyenler için fallback */
+  --vh: 1vh;
+}
+
+html, body, #root {
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+input, button, textarea { font-family: inherit; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bg-active); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--bg-raised); }
