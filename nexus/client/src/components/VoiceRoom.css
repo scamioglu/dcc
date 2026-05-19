@@ -1,0 +1,159 @@
+.voice-room {
+  width: 240px; flex-shrink: 0;
+  background: var(--bg-surface);
+  border-left: 0.5px solid var(--border);
+  display: flex; flex-direction: column;
+  height: 100%; overflow: hidden;
+}
+
+.voice-header {
+  padding: 10px 14px;
+  border-bottom: 0.5px solid var(--border);
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+  background: var(--bg-deep);
+}
+.voice-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 6px var(--green); flex-shrink: 0;
+}
+.voice-title { font-size: 13px; font-weight: 600; color: var(--text-primary); flex: 1; }
+.voice-status { font-size: 10px; color: var(--text-muted); }
+.voice-status.v-ok { color: var(--green-light); }
+
+/* Videos */
+.voice-videos { padding: 8px; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+
+.voice-video-thumb {
+  position: relative; border-radius: 8px; overflow: hidden;
+  background: #000; cursor: pointer;
+  border: 0.5px solid var(--border-md);
+  transition: border-color 0.15s;
+  /* Yeni stacking context — thumb-vol-wrap z-index çalışsın */
+  isolation: isolate;
+}
+.voice-video-thumb:hover { border-color: var(--accent); }
+.voice-video-thumb:hover .thumb-fs { opacity: 1; }
+
+.thumb-video { width: 100%; display: block; max-height: 130px; object-fit: contain; background: #000; }
+
+/* overlay: pointer-events:none — sadece görsel, tıklama geçer */
+.thumb-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(transparent 55%, rgba(0,0,0,0.7) 100%);
+  display: flex; align-items: flex-end; padding: 0 7px 5px;
+  pointer-events: none;
+  z-index: 1;
+}
+.thumb-label { font-size: 11px; font-weight: 600; color: #fff; flex: 1; }
+.thumb-fs {
+  font-size: 14px; color: rgba(255,255,255,0.8); opacity: 0; transition: opacity 0.15s;
+  background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 4px;
+}
+
+/* Yayın ses slider — kendi z-index katmanı, tıklamayı bloke eder */
+.thumb-vol-wrap {
+  position: absolute; top: 6px; right: 6px;
+  z-index: 10; /* overlay'in (z:1) üstünde */
+  display: flex; align-items: center; gap: 4px;
+  background: rgba(0,0,0,0.7); padding: 4px 8px; border-radius: 12px;
+  cursor: default;
+}
+.thumb-vol-icon { font-size: 11px; color: #fff; user-select: none; }
+.thumb-vol-range {
+  width: 56px; accent-color: #fff; cursor: pointer;
+  /* range input yüksekliği — dokunma alanı */
+  height: 4px;
+}
+.thumb-vol-pct { font-size: 10px; color: rgba(255,255,255,0.8); min-width: 28px; user-select: none; }
+
+/* Üyeler */
+.voice-members { flex: 1; overflow-y: auto; padding: 6px 8px; }
+.voice-members-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--text-muted); padding: 6px 4px 4px;
+}
+.voice-member {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 6px 6px; border-radius: 6px; transition: background 0.1s;
+}
+.voice-member:hover { background: var(--bg-hover); }
+.voice-member.sharing { background: rgba(29,158,117,0.07); }
+.voice-member-avatar {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: rgba(0,0,0,0.4);
+}
+.voice-member-info { flex: 1; min-width: 0; }
+.voice-member-top { display: flex; align-items: center; justify-content: space-between; }
+.voice-member-name { font-size: 12px; color: var(--text-secondary); }
+.voice-member-badges { display: flex; gap: 2px; }
+.voice-badge { font-size: 11px; }
+
+.voice-vol-row {
+  display: flex; align-items: center; gap: 4px; margin-top: 3px; cursor: default;
+}
+.vol-icon { font-size: 10px; color: var(--text-muted); flex-shrink: 0; }
+.vol-slider { flex: 1; accent-color: var(--accent); height: 3px; cursor: pointer; max-width: 80px; }
+.vol-pct { font-size: 9px; color: var(--text-muted); min-width: 28px; }
+
+/* Kontroller */
+.voice-controls {
+  padding: 8px; border-top: 0.5px solid var(--border);
+  display: flex; gap: 4px; flex-shrink: 0; background: var(--bg-deep);
+}
+.voice-btn {
+  flex: 1; padding: 7px 4px; border-radius: 7px;
+  background: var(--bg-raised); border: 0.5px solid var(--border-md);
+  color: var(--text-secondary); cursor: pointer;
+  transition: background 0.12s, color 0.12s; font-family: inherit;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.voice-btn:hover { background: var(--bg-active); color: var(--text-primary); }
+.voice-btn.v-active { background: rgba(29,158,117,0.15); border-color: rgba(29,158,117,0.3); color: var(--green-light); }
+.voice-btn.v-danger { background: rgba(216,90,48,0.15); border-color: rgba(216,90,48,0.3); color: #f07575; }
+.voice-btn.v-leave  { color: #f07575; }
+.voice-btn.v-leave:hover { background: rgba(216,90,48,0.18); }
+.vbtn-label { font-size: 9px; font-weight: 500; }
+
+/* Tam ekran */
+.fs-wrap {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #000;
+  display: flex; align-items: center; justify-content: center;
+  /* Cursor: gizle (hareket edince göster) */
+  cursor: none;
+}
+.fs-wrap:hover { cursor: default; }
+.fs-mobile { z-index: 9999; }
+.fs-video { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+.fs-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.9));
+  padding: 28px 20px 16px;
+  display: flex; align-items: center; gap: 14px;
+  opacity: 0; transition: opacity 0.25s; pointer-events: none;
+}
+.fs-bar.fs-bar-show { opacity: 1; pointer-events: all; }
+.fs-bar-mobile { padding: 20px 16px 20px; }
+.fs-name { font-size: 15px; font-weight: 600; color: #fff; flex: 1; }
+.fs-vol {
+  display: flex; align-items: center; gap: 8px; color: #ccc; font-size: 13px;
+  cursor: default;
+}
+.fs-vol-range { width: 120px; accent-color: var(--accent); cursor: pointer; }
+.fs-vol-pct { font-size: 12px; color: #aaa; min-width: 34px; text-align: right; }
+.fs-close {
+  background: rgba(216,90,48,0.2); border: 0.5px solid rgba(216,90,48,0.4);
+  color: #f07575; padding: 7px 16px; border-radius: 6px;
+  font-size: 13px; cursor: pointer; font-family: inherit;
+}
+.fs-close:hover { background: rgba(216,90,48,0.4); }
+
+/* Mobil */
+@media (max-width: 768px) {
+  .voice-room { width: 100%; border-left: none; height: 100%; }
+  .voice-member-name { font-size: 13px; }
+  .vol-slider { max-width: 110px; }
+  .thumb-vol-range { width: 70px; }
+}
